@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALL ROUNDER.LK | Luxury Lighting, Chairs, Stage FX & Admin Portal</title>
+  <meta name="description" content="Premier event lightings, chair arrangements, stage setups, and integrated real-time management console by All Rounder.lk." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              amber: '#fbbf24',
+              dark: '#090a0f',
+              card: '#12151f',
+              purple: '#8b5cf6',
+              sidebar: '#0e111a',
+              border: '#232738'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700;1,800;1,900&family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;600;700;800&family=Syne:wght@700;800;900&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-gold: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.35);
+      --dark-bg: #090a0f;
+    }
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--dark-bg);
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+    .font-luxury { font-family: 'Cinzel', serif; }
+    .font-brand-stylish {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, #fef08a 25%, #fbbf24 60%, #f59e0b 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 14px rgba(245, 158, 11, 0.35));
+    }
+    .font-headline-packages {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    .font-headline-packages .gradient-gold {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      font-style: italic;
+      background: linear-gradient(135deg, #ffffff 0%, #fef3c7 20%, #fcd34d 50%, #f59e0b 80%, #d97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.4));
+      padding-right: 0.08em;
+    }
+    .font-headline-packages .ampersand {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: #fbbf24;
+      margin: 0 0.15em;
+    }
+    .bg-ambient-lights {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; overflow: hidden; z-index: 0;
+    }
+    .light-orb {
+      position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.25;
+      animation: floatOrb 14s ease-in-out infinite alternate;
+    }
+    .orb-gold { width: 450px; height: 450px; background: radial-gradient(circle, #f59e0b, transparent 70%); top: -80px; right: 5%; }
+    .orb-purple { width: 500px; height: 500px; background: radial-gradient(circle, #7c3aed, transparent 70%); top: 30%; left: -100px; animation-duration: 18s; }
+    .orb-cyan { width: 400px; height: 400px; background: radial-gradient(circle, #06b6d4, transparent 70%); bottom: 15%; right: 8%; animation-duration: 16s; }
+    @keyframes floatOrb {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(50px) scale(1.12); }
+    }
+    .glass-panel {
+      background: rgba(18, 21, 31, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
+    }
+    .glass-panel:hover {
+      border-color: rgba(245, 158, 11, 0.3);
+      box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.15);
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      transition: all 0.2s ease;
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+      transform: translateY(-1px);
+    }
+    .text-glow {
+      text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+    }
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 40;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+    }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #090a0f; }
+    ::-webkit-scrollbar-thumb { background: #262b3d; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-[#090a0f] text-slate-100 selection:bg-amber-500 selection:text-black">
+
+  <!-- ======================================================== -->
+  <!-- PUBLIC WEBSITE CONTAINER                                 -->
+  <!-- ======================================================== -->
+  <div id="public-site" class="relative">
+
+    <!-- Ambient Light Orbs -->
+    <div class="bg-ambient-lights">
+      <div class="light-orb orb-gold"></div>
+      <div class="light-orb orb-purple"></div>
+      <div class="light-orb orb-cyan"></div>
+    </div>
+
+    <!-- Announcement Bar -->
+    <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-zinc-950 px-4 py-2 text-xs sm:text-sm font-semibold text-center flex items-center justify-center gap-2 relative z-40 shadow-md">
+      <span class="animate-pulse">✨</span>
+      <span id="site-announcement-text"><strong>All Rounder.lk Upcoming Deals:</strong> Book your Wedding or Gala lighting & chairs early and get <strong>20% OFF</strong> + Free Cold Spark Fountains!</span>
+      <a href="#promo-banner" class="underline ml-2 hidden sm:inline font-bold hover:text-white transition-colors">View Deal</a>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-[#090a0f]/85 backdrop-blur-xl border-b border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-105 transition-transform">
+            <i data-lucide="sparkles" class="w-6 h-6 text-black"></i>
+          </div>
+          <div>
+            <span class="text-xl sm:text-2xl font-black tracking-wider text-white font-brand-stylish block leading-none">ALL ROUNDER</span>
+            <span class="text-[10px] uppercase tracking-widest text-amber-400 font-semibold">.lk Events & Rentals</span>
+          </div>
+        </a>
+
+        <!-- Navigation Links -->
+        <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+          <a href="index.html#services" class="hover:text-amber-400 transition-colors">Services</a>
+          <a href="packages.html" class="text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1.5 font-semibold">
+            <span>Upcoming Packages</span>
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+          </a>
+          <a href="packages.html" class="hover:text-amber-400 transition-colors">Packages</a>
+          <a href="reviews.html" class="hover:text-amber-400 transition-colors flex items-center gap-1">
+            <i data-lucide="play-circle" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Reviews</span>
+          </a>
+          <a href="index.html#contact" class="hover:text-amber-400 transition-colors">Contact</a>
+        </nav>
+
+        <!-- CTAs -->
+        <div class="flex items-center gap-3">
+          <a href="packages.html" class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-slate-950 btn-gold flex items-center gap-2 shadow-lg shadow-amber-500/20">
+            <i data-lucide="calendar" class="w-4 h-4 text-slate-950"></i>
+            <span>Book Event</span>
+          </a>
+          <!-- Switch to Admin View -->
+          <button onclick="switchToAdminPortal()" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#161a27] border border-[#2b3147] text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/40 transition-all flex items-center gap-1.5 shadow-sm" title="Launch All Rounder.lk Console (Ctrl + Shift + A)">
+            <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Admin Portal</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center z-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-6">
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        <span>All Rounder.lk • Event Productions 2026</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-headline-packages text-white tracking-tight leading-tight max-w-5xl mx-auto">
+        Bespoke Stage Lightings, <br class="hidden sm:inline"/>
+        <span class="gradient-gold">Luxury Seating</span> <span class="ampersand">&</span> Visual FX
+      </h1>
+
+      <p class="text-slate-300 text-base sm:text-lg max-w-3xl mx-auto mt-6 leading-relaxed">
+        Transforming luxury weddings, corporate galas, and concert receptions across Sri Lanka with intelligent beam rigs, fairy light canopies, and designer Chiavari & cross-back chair arrangements.
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="openBookingModal('General Production Quote')" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-slate-950 btn-gold flex items-center justify-center gap-2 text-base shadow-xl shadow-amber-500/25">
+          <span>Get Free Custom Quote</span>
+          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </button>
+        <a href="#calculator" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-white bg-slate-900/80 hover:bg-slate-800 border border-white/10 flex items-center justify-center gap-2 text-base transition-colors">
+          <i data-lucide="calculator" class="w-5 h-5 text-amber-400"></i>
+          <span>Instant Cost Estimator</span>
+        </a>
+      </div>
+
+      <!-- Stat Badges -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16 max-w-4xl mx-auto">
+        <div class="glass-panel p-5 rounded-2xl text-center">
+          <div class="text-3xl sm:text-4xl font-extrabold text-amber-400">850+</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase font-semibold">Events Produced</div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl text-center">
+          <div class="text-3xl sm:text-4xl font-extrabold text-amber-400">25k+</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase font-semibold">Chairs in Inventory</div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl text-center">
+          <div class="text-3xl sm:text-4xl font-extrabold text-amber-400">100%</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase font-semibold">On-Time Execution</div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl text-center">
+          <div class="text-3xl sm:text-4xl font-extrabold text-amber-400">4.9 ★</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase font-semibold">Client Satisfaction</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMOTIONAL DEALS BANNER & CAROUSEL (Synced with Admin CMS) -->
+    <section id="promo-banner" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+      <div class="border border-amber-500/30 rounded-3xl bg-gradient-to-br from-[#19150f] via-[#10141e] to-[#090b10] p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-white/5">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+              <i data-lucide="tag" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold font-headline-packages">
+                Upcoming Season Packages <span class="ampersand">&</span> <span class="gradient-gold">Production Bundles</span>
+              </h2>
+              <p class="text-xs text-slate-400">Exclusive bundled packages managed live via All Rounder.lk Admin Console</p>
+            </div>
+          </div>
+          <!-- Arrows -->
+          <div class="flex items-center gap-2">
+            <button onclick="prevSlide()" class="p-2 rounded-xl bg-white/5 hover:bg-amber-500/20 text-slate-300 hover:text-amber-400 transition-colors">
+              <i data-lucide="chevron-left" class="w-5 h-5"></i>
+            </button>
+            <button onclick="nextSlide()" class="p-2 rounded-xl bg-white/5 hover:bg-amber-500/20 text-slate-300 hover:text-amber-400 transition-colors">
+              <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="banner-slides-container" class="min-h-[160px] flex items-center">
+          <!-- Injected dynamically from LuminaDB -->
+        </div>
+
+        <!-- Dots indicator -->
+        <div id="banner-dots" class="flex items-center justify-center gap-2 mt-6"></div>
+      </div>
+    </section>
+
+    <!-- SERVICES OVERVIEW -->
+    <section id="services" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10 relative">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-amber-400 text-xs font-bold uppercase tracking-widest">Our Capabilities</span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold font-luxury text-white mt-2">All Rounder.lk Productions</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-4">One-stop event infrastructure engineered for breathtaking atmosphere and execution.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Service 1 -->
+        <div class="glass-panel p-8 rounded-3xl relative flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-6 border border-amber-500/30">
+              <i data-lucide="sun" class="w-7 h-7"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white font-luxury mb-3">Architectural & Ambient Lighting</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+              Wireless computerized DMX uplights, custom monogram projections, fairy light starlight canopies, and warm Edison vintage festoon grids.
+            </p>
+          </div>
+          <button onclick="openBookingModal('Lighting Productions')" class="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1.5">
+            <span>Inquire Lighting Gear</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="glass-panel p-8 rounded-3xl relative flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-6 border border-purple-500/30">
+              <i data-lucide="armchair" class="w-7 h-7"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white font-luxury mb-3">Luxury Designer Seating</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+              Gold, Silver & Mahogany Chiavari chairs, elegant Ghost Acrylic chairs, rustic Cross-Back wooden seating, and VIP velvet lounge furniture.
+            </p>
+          </div>
+          <button onclick="openBookingModal('Chairs & Furniture Rentals')" class="text-xs font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1.5">
+            <span>Inquire Chair Inventory</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="glass-panel p-8 rounded-3xl relative flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-sky-500/10 text-sky-400 flex items-center justify-center mb-6 border border-sky-500/30">
+              <i data-lucide="flame" class="w-7 h-7"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white font-luxury mb-3">Stage & Special Effects</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+              Heavy-duty box truss setups, high-density LED video walls, low-lying cloud foggers for first dances, and cold indoor spark fountains.
+            </p>
+          </div>
+          <button onclick="openBookingModal('Stage & Special Effects')" class="text-xs font-bold text-sky-400 hover:text-sky-300 flex items-center gap-1.5">
+            <span>Inquire Stage & FX</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE ESTIMATOR -->
+    <section id="calculator" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10 relative">
+      <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-amber-500/30">
+        <div class="text-center mb-10">
+          <span class="text-amber-400 text-xs font-bold uppercase tracking-widest">Instant Calculator</span>
+          <h2 class="text-2xl sm:text-4xl font-bold font-luxury text-white mt-1">Estimate Your Event Setup Cost</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">Adjust guest numbers and select options to calculate an approximate budget instantly.</p>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Guest Slider -->
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-2">
+              <span class="text-slate-300">Guest Count / Chair Requirements</span>
+              <span id="est-guest-label" class="text-amber-400 font-bold text-base">250 Guests</span>
+            </div>
+            <input type="range" id="est-guest-slider" min="50" max="1000" step="25" value="250" oninput="updateEstimatorTotal()"
+              class="w-full accent-amber-500 cursor-pointer h-2 bg-slate-800 rounded-lg" />
+          </div>
+
+          <!-- Chair Style -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="chair-type" value="chiavari" checked onchange="updateEstimatorTotal()" class="hidden peer">
+              <div class="p-4 rounded-xl border border-white/10 peer-checked:border-amber-500 peer-checked:bg-amber-500/10 text-center transition-all">
+                <span class="block font-bold text-white text-xs sm:text-sm">Gold Chiavari</span>
+                <span class="text-[11px] text-amber-400">Rs. 650 / chair</span>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="chair-type" value="crossback" onchange="updateEstimatorTotal()" class="hidden peer">
+              <div class="p-4 rounded-xl border border-white/10 peer-checked:border-amber-500 peer-checked:bg-amber-500/10 text-center transition-all">
+                <span class="block font-bold text-white text-xs sm:text-sm">Rustic Cross-Back</span>
+                <span class="text-[11px] text-amber-400">Rs. 800 / chair</span>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="chair-type" value="ghost" onchange="updateEstimatorTotal()" class="hidden peer">
+              <div class="p-4 rounded-xl border border-white/10 peer-checked:border-amber-500 peer-checked:bg-amber-500/10 text-center transition-all">
+                <span class="block font-bold text-white text-xs sm:text-sm">Clear Ghost Chair</span>
+                <span class="text-[11px] text-amber-400">Rs. 950 / chair</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- Add-ons -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-white/10 bg-slate-900/60 cursor-pointer select-none">
+              <input type="checkbox" id="est-addon-uplights" checked onchange="updateEstimatorTotal()" class="rounded bg-slate-800 border-white/20 text-amber-500">
+              <div class="text-xs">
+                <span class="font-bold text-white block">Full Ambient Uplighting (24 Units)</span>
+                <span class="text-slate-400">+Rs. 65,000 Flat</span>
+              </div>
+            </label>
+            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-white/10 bg-slate-900/60 cursor-pointer select-none">
+              <input type="checkbox" id="est-addon-cloud" onchange="updateEstimatorTotal()" class="rounded bg-slate-800 border-white/20 text-amber-500">
+              <div class="text-xs">
+                <span class="font-bold text-white block">Dancing on Clouds Fog + Cold Sparks</span>
+                <span class="text-slate-400">+Rs. 55,000 Flat</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- Total & Booking Trigger -->
+          <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="text-xs text-slate-400 uppercase font-semibold">Estimated Total</span>
+              <div class="text-3xl sm:text-4xl font-extrabold text-amber-400 text-glow" id="est-total-display">Rs. 282,500</div>
+              <span class="text-[10px] text-slate-500">Includes professional delivery, setup & teardown across Sri Lanka</span>
+            </div>
+            <button onclick="bookEstimatedQuote()" class="px-7 py-3.5 rounded-xl font-bold text-slate-950 btn-gold text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
+              <i data-lucide="check-circle" class="w-4 h-4"></i>
+              <span>Book This Estimated Setup</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/5 py-12 text-slate-400 text-sm relative z-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 font-bold">
+            <i data-lucide="sparkles" class="w-4 h-4 text-black"></i>
+          </div>
+          <span class="text-lg font-bold text-white font-luxury tracking-wider">ALL ROUNDER.LK</span>
+        </div>
+        <p class="text-xs text-slate-500 text-center">
+          © 2026 All Rounder.lk. All Rights Reserved. Specializing in Lighting, Chairs & Stage Productions.
+        </p>
+        <div class="flex items-center gap-4 text-xs text-slate-400 flex-wrap justify-center">
+          <a href="#services" class="hover:text-amber-400">Services</a>
+          <a href="#packages" class="hover:text-amber-400">Packages</a>
+          <a href="#calculator" class="hover:text-amber-400">Estimator</a>
+          <!-- Launch Admin View -->
+          <button onclick="switchToAdminPortal()" class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-zinc-900 border border-zinc-700/80 text-amber-400 hover:bg-amber-500/10 transition-all font-semibold">
+            <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+            <span>Admin Portal</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/1234567890?text=Hello%20All%20Rounder.lk!" target="_blank" class="whatsapp-float bg-emerald-500 hover:bg-emerald-400 text-white w-14 h-14 rounded-full flex items-center justify-center transition-transform hover:scale-110" aria-label="WhatsApp">
+      <i data-lucide="message-circle" class="w-7 h-7 text-white"></i>
+    </a>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- PUBLIC BOOKING MODAL                                     -->
+  <!-- ======================================================== -->
+  <div id="booking-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="glass-panel bg-[#12151f] border border-amber-500/30 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeBookingModal()" class="absolute top-5 right-5 p-2 text-slate-400 hover:text-white rounded-lg bg-zinc-800/80">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div id="modal-body-container">
+        <div class="mb-6">
+          <span class="text-amber-400 text-xs font-bold uppercase tracking-widest">Reserve Your Date</span>
+          <h3 class="text-2xl font-bold text-white font-luxury mt-1">Event Booking & Quote Inquiry</h3>
+          <p class="text-xs text-slate-400 mt-1">Submit your details to receive instant WhatsApp quote confirmation and sync with our All Rounder.lk calendar.</p>
+        </div>
+
+        <form id="booking-form" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Your Full Name *</label>
+            <input id="modal-name" type="text" required placeholder="e.g. John Doe" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Phone / WhatsApp *</label>
+              <input id="modal-phone" type="tel" required placeholder="+94 77 123 4567" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Event Category</label>
+              <select id="modal-event-type" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400">
+                <option>Wedding / Reception</option>
+                <option>Sangeet / Mehendi</option>
+                <option>Corporate Gala / Conference</option>
+                <option>Birthday / Private Party</option>
+                <option>Concert / Festival</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Event Date</label>
+              <input id="modal-date" type="date" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Approx Guests</label>
+              <input id="modal-guests" type="number" placeholder="250" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Selected Package / Service</label>
+            <input id="modal-package-select" type="text" placeholder="e.g. Royal Wedding Grandeur" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Venue Location or Special Notes</label>
+            <textarea id="modal-notes" rows="2" placeholder="Venue details or requested light colors..." class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-400"></textarea>
+          </div>
+
+          <div class="flex items-center gap-3 pt-2">
+            <button type="button" onclick="closeBookingModal()" class="w-1/3 py-3 rounded-xl bg-zinc-800 text-slate-300 font-semibold">Cancel</button>
+            <button type="submit" class="w-2/3 py-3 rounded-xl font-bold text-black btn-gold flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Send & Reserve</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- INTEGRATED ADMIN PORTAL MODAL / VIEW                     -->
+  <!-- ======================================================== -->
+  <div id="admin-portal-modal" class="fixed inset-0 z-50 bg-[#07090e] hidden flex-col overflow-hidden">
+
+    <!-- Admin Header -->
+    <div class="h-16 px-6 bg-[#0e111a] border-b border-[#202536] flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-md shadow-amber-500/20">
+          <i data-lucide="shield-check" class="w-5 h-5 text-black"></i>
+        </div>
+        <div>
+          <span class="font-luxury font-bold text-white text-base leading-none block">ALL ROUNDER.LK CONSOLE</span>
+          <span class="text-[10px] uppercase font-semibold text-amber-400 tracking-wider">Management Console</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-slate-400 hidden sm:inline">Admin User: <strong class="text-white" id="adm-user-label">admin</strong></span>
+        <button onclick="switchToPublicSite()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#1a1e2d] hover:bg-white/10 text-slate-200 border border-white/5 flex items-center gap-1.5 transition-colors">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Exit to Public Site</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Admin Body: Login or Dashboard -->
+    <div class="flex-1 overflow-y-auto">
+
+      <!-- Login Card (if unauthenticated) -->
+      <div id="adm-login-card" class="max-w-md mx-auto my-16 p-8 bg-[#131622] border border-[#262b3d] rounded-2xl shadow-2xl space-y-6">
+        <div class="text-center">
+          <h2 class="text-2xl font-bold font-luxury text-white">All Rounder.lk Admin Sign In</h2>
+          <p class="text-xs text-slate-400 mt-1">Access the live bookings database, package CMS, and WhatsApp routing.</p>
+        </div>
+
+        <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3 text-xs text-slate-300">
+          <span class="font-bold text-amber-400">Default Credentials:</span><br>
+          Username: <code class="text-white bg-black/40 px-1 py-0.5 rounded">admin</code> |
+          Password: <code class="text-white bg-black/40 px-1 py-0.5 rounded">allrounder2026</code>
+        </div>
+
+        <form id="adm-login-form" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Username</label>
+            <input type="text" id="adm-user-input" value="admin" required class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Password</label>
+            <input type="password" id="adm-pass-input" value="allrounder2026" required class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div id="adm-login-error" class="hidden text-xs text-red-400 bg-red-950/40 p-2 rounded"></div>
+          <button type="submit" class="w-full py-2.5 rounded-xl font-bold text-slate-950 btn-gold">
+            Unlock Admin Console
+          </button>
+        </form>
+      </div>
+
+      <!-- Authenticated Dashboard View -->
+      <div id="adm-console-content" class="hidden p-4 sm:p-8 max-w-7xl mx-auto space-y-8">
+
+        <!-- Navigation Tabs -->
+        <div class="flex items-center gap-3 overflow-x-auto pb-2 border-b border-white/5">
+          <button onclick="switchAdminTab('dash')" id="tab-dash" class="px-4 py-2 rounded-xl text-xs font-bold bg-amber-500 text-black">
+            📊 Dashboard & KPI
+          </button>
+          <button onclick="switchAdminTab('bookings')" id="tab-bookings" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#181c2b] text-slate-300 hover:text-white">
+            📅 Bookings & Inquiries
+          </button>
+          <button onclick="switchAdminTab('packages')" id="tab-packages" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#181c2b] text-slate-300 hover:text-white">
+            🎁 Upcoming Deals CMS
+          </button>
+          <button onclick="switchAdminTab('settings')" id="tab-settings" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#181c2b] text-slate-300 hover:text-white">
+            ⚙️ Settings & Backups
+          </button>
+        </div>
+
+        <!-- TAB 1: DASHBOARD -->
+        <div id="subview-dash" class="space-y-6">
+          <!-- 4 KPI Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-[#131622] border border-[#24293c] p-5 rounded-2xl">
+              <span class="text-xs uppercase text-slate-400 font-semibold">Total Inquiries</span>
+              <div class="text-3xl font-bold text-white mt-2" id="dash-kpi-total">0</div>
+            </div>
+            <div class="bg-[#131622] border border-[#24293c] p-5 rounded-2xl">
+              <span class="text-xs uppercase text-slate-400 font-semibold">Pending Action</span>
+              <div class="text-3xl font-bold text-amber-400 mt-2" id="dash-kpi-pending">0</div>
+            </div>
+            <div class="bg-[#131622] border border-[#24293c] p-5 rounded-2xl">
+              <span class="text-xs uppercase text-slate-400 font-semibold">Pipeline Revenue</span>
+              <div class="text-3xl font-bold text-white mt-2" id="dash-kpi-pipeline">Rs. 0</div>
+            </div>
+            <div class="bg-[#131622] border border-[#24293c] p-5 rounded-2xl">
+              <span class="text-xs uppercase text-slate-400 font-semibold">Confirmed Rate</span>
+              <div class="text-3xl font-bold text-emerald-400 mt-2" id="dash-kpi-rate">75%</div>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 bg-[#131622] border border-[#24293c] p-6 rounded-2xl">
+              <h4 class="font-bold text-white text-sm mb-4">Monthly Inquiries Volume</h4>
+              <div class="h-60 relative">
+                <canvas id="standalone-chart-trends"></canvas>
+              </div>
+            </div>
+            <div class="bg-[#131622] border border-[#24293c] p-6 rounded-2xl">
+              <h4 class="font-bold text-white text-sm mb-4">Events by Category</h4>
+              <div class="h-60 relative flex items-center justify-center">
+                <canvas id="standalone-chart-cat"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: BOOKINGS TABLE -->
+        <div id="subview-bookings" class="hidden space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#131622] p-4 rounded-2xl border border-[#24293c]">
+            <input type="text" id="adm-booking-search" oninput="renderAdmBookings()" placeholder="Search bookings by client, phone, or date..."
+              class="bg-[#0b0d14] border border-[#2b3147] rounded-xl px-4 py-2 text-xs text-white sm:w-80 focus:outline-none focus:border-amber-400" />
+            <div class="flex items-center gap-2">
+              <button onclick="LuminaDB.exportBookingsCSV()" class="px-3 py-2 rounded-xl text-xs font-semibold bg-[#1a1e2d] border border-white/5 text-slate-200 hover:text-white flex items-center gap-1.5">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                <span>Download CSV</span>
+              </button>
+              <button onclick="seedDemoDataset()" class="px-3 py-2 rounded-xl text-xs font-semibold bg-amber-500/20 border border-amber-500/40 text-amber-400 hover:bg-amber-500/30">
+                Seed 10 Leads
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-[#131622] border border-[#24293c] rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-[#0f121d] uppercase font-bold text-slate-400 border-b border-white/5">
+                  <tr>
+                    <th class="py-3 px-4">Booking ID</th>
+                    <th class="py-3 px-4">Client</th>
+                    <th class="py-3 px-4">Category</th>
+                    <th class="py-3 px-4">Event Date</th>
+                    <th class="py-3 px-4">Guests</th>
+                    <th class="py-3 px-4">Budget / Quote</th>
+                    <th class="py-3 px-4">Status</th>
+                    <th class="py-3 px-4 text-right">Quick Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adm-bookings-tbody" class="divide-y divide-white/5 text-slate-200">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: PACKAGES CMS -->
+        <div id="subview-packages" class="hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-white">Live Promotional Packages</h3>
+            <span class="text-xs text-amber-400">Updates homepage promo banner immediately</span>
+          </div>
+          <div id="adm-packages-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- TAB 4: SETTINGS -->
+        <div id="subview-settings" class="hidden space-y-6">
+          <div class="bg-[#131622] border border-[#24293c] p-6 rounded-2xl space-y-4 max-w-xl">
+            <h3 class="font-bold text-white text-base">WhatsApp Routing & General Settings</h3>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">WhatsApp Recipient Number</label>
+              <input type="text" id="adm-set-whatsapp" class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Banner Announcement Text</label>
+              <input type="text" id="adm-set-banner" class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400" />
+            </div>
+            <button onclick="saveAdmSettings()" class="px-5 py-2.5 rounded-xl font-bold text-black btn-gold text-xs">
+              Save Configurations
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- SHARED DATA STORE & APP LOGIC                            -->
+  <!-- ======================================================== -->
+  <script src="js/admin-data.js"></script>
+  <script>
+    // Standalone Application Orchestrator
+    let standaloneChart1 = null;
+    let standaloneChart2 = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initPromoBanner();
+      updateEstimatorTotal();
+      if (window.lucide) lucide.createIcons();
+
+      // Setup booking modal form
+      const form = document.getElementById("booking-form");
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const name = document.getElementById("modal-name").value;
+          const phone = document.getElementById("modal-phone").value;
+          const eventType = document.getElementById("modal-event-type").value;
+          const packageSelected = document.getElementById("modal-package-select").value || "Custom Package";
+          const date = document.getElementById("modal-date").value || "TBD";
+          const guests = document.getElementById("modal-guests").value || "200";
+          const notes = document.getElementById("modal-notes").value || "";
+
+          // Persist to LuminaDB
+          if (window.LuminaDB && window.LuminaDB.bookings) {
+            window.LuminaDB.bookings.create({
+              name, phone, eventType, packageSelected, date, guests,
+              budget: packageSelected.includes("Rs.") ? packageSelected.match(/Rs\.\s*[0-9,]+/)?.[0] || "Rs. 250,000" : "Rs. 250,000",
+              notes, status: "Pending"
+            });
+          }
+
+          const settings = window.LuminaDB ? window.LuminaDB.settings.get() : { whatsapp: "1234567890" };
+          const cleanWa = (settings.whatsapp || "1234567890").replace(/[^0-9]/g, "");
+          const msg = encodeURIComponent(`Hello All Rounder.lk!\nI am submitting a booking inquiry:\nName: ${name}\nPhone: ${phone}\nEvent: ${eventType}\nDate: ${date}\nPackage: ${packageSelected}`);
+          window.open(`https://wa.me/${cleanWa}?text=${msg}`, "_blank");
+
+          alert("Inquiry submitted successfully! Details synced to All Rounder.lk Admin Console.");
+          closeBookingModal();
+        });
+      }
+
+      // Keyboard shortcut Ctrl + Shift + A
+      window.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a")) {
+          e.preventDefault();
+          switchToAdminPortal();
+        }
+      });
+    });
+
+    // --- Switch between Public Site and Admin Portal ---
+    function switchToAdminPortal() {
+      document.getElementById("public-site").classList.add("hidden");
+      document.getElementById("admin-portal-modal").classList.remove("hidden");
+      document.getElementById("admin-portal-modal").classList.add("flex");
+
+      if (LuminaDB.auth.isAuthenticated()) {
+        showAdminConsoleContent();
+      } else {
+        document.getElementById("adm-login-card").classList.remove("hidden");
+        document.getElementById("adm-console-content").classList.add("hidden");
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function switchToPublicSite() {
+      document.getElementById("admin-portal-modal").classList.add("hidden");
+      document.getElementById("admin-portal-modal").classList.remove("flex");
+      document.getElementById("public-site").classList.remove("hidden");
+      initPromoBanner();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // --- Admin Authentication Form ---
+    document.getElementById("adm-login-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const u = document.getElementById("adm-user-input").value;
+      const p = document.getElementById("adm-pass-input").value;
+      const res = LuminaDB.auth.login(u, p, true);
+      if (res.success) {
+        showAdminConsoleContent();
+      } else {
+        const err = document.getElementById("adm-login-error");
+        err.textContent = res.error;
+        err.classList.remove("hidden");
+      }
+    });
+
+    function showAdminConsoleContent() {
+      document.getElementById("adm-login-card").classList.add("hidden");
+      document.getElementById("adm-console-content").classList.remove("hidden");
+      const session = LuminaDB.auth.getSession();
+      if (session) document.getElementById("adm-user-label").textContent = session.username;
+
+      renderAdmDashboard();
+      renderAdmBookings();
+      renderAdmPackages();
+      loadAdmSettings();
+      switchAdminTab("dash");
+    }
+
+    function switchAdminTab(tab) {
+      ["dash", "bookings", "packages", "settings"].forEach(t => {
+        const el = document.getElementById(`subview-${t}`);
+        const btn = document.getElementById(`tab-${t}`);
+        if (el) el.classList.add("hidden");
+        if (btn) {
+          btn.classList.remove("bg-amber-500", "text-black", "font-bold");
+          btn.classList.add("bg-[#181c2b]", "text-slate-300");
+        }
+      });
+      document.getElementById(`subview-${tab}`)?.classList.remove("hidden");
+      const activeBtn = document.getElementById(`tab-${tab}`);
+      if (activeBtn) {
+        activeBtn.classList.add("bg-amber-500", "text-black", "font-bold");
+        activeBtn.classList.remove("bg-[#181c2b]", "text-slate-300");
+      }
+      if (tab === "dash") renderAdmDashboard();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // --- Admin Dashboard & Charts ---
+    function renderAdmDashboard() {
+      const bookings = LuminaDB.bookings.getAll();
+      const pending = bookings.filter(b => b.status === "Pending").length;
+      const confirmed = bookings.filter(b => b.status === "Confirmed").length;
+      const pipeline = bookings.reduce((sum, b) => sum + (b.numericAmount || 0), 0);
+      const curr = LuminaDB.settings.get().currency || "Rs.";
+
+      document.getElementById("dash-kpi-total").textContent = bookings.length;
+      document.getElementById("dash-kpi-pending").textContent = pending;
+      document.getElementById("dash-kpi-pipeline").textContent = `${curr} ${pipeline.toLocaleString()}`;
+      document.getElementById("dash-kpi-rate").textContent = `${bookings.length > 0 ? Math.round((confirmed / bookings.length) * 100) : 0}%`;
+
+      // Trends
+      const ctx1 = document.getElementById("standalone-chart-trends")?.getContext("2d");
+      if (ctx1) {
+        if (standaloneChart1) standaloneChart1.destroy();
+        standaloneChart1 = new Chart(ctx1, {
+          type: "bar",
+          data: {
+            labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{ label: "Inquiries", data: [8, 12, 15, 24, 18, 14], backgroundColor: "rgba(245, 158, 11, 0.5)", borderColor: "#f59e0b", borderWidth: 2, borderRadius: 6 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+      }
+
+      // Categories
+      const ctx2 = document.getElementById("standalone-chart-cat")?.getContext("2d");
+      if (ctx2) {
+        if (standaloneChart2) standaloneChart2.destroy();
+        standaloneChart2 = new Chart(ctx2, {
+          type: "doughnut",
+          data: {
+            labels: ["Weddings", "Galas", "Sangeet", "Birthdays"],
+            datasets: [{ data: [45, 25, 20, 10], backgroundColor: ["#f59e0b", "#8b5cf6", "#06b6d4", "#ec4899"], borderColor: "#131622", borderWidth: 2 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, cutout: "65%" }
+        });
+      }
+    }
+
+    // --- Admin Bookings Table ---
+    function renderAdmBookings() {
+      const tbody = document.getElementById("adm-bookings-tbody");
+      if (!tbody) return;
+      const bookings = LuminaDB.bookings.getAll();
+      const q = (document.getElementById("adm-booking-search")?.value || "").toLowerCase();
+      const filtered = bookings.filter(b => (b.name + b.phone + b.id + b.eventType).toLowerCase().includes(q));
+
+      tbody.innerHTML = filtered.map(b => {
+        const statusColors = {
+          "Confirmed": "bg-emerald-950/60 text-emerald-400 border-emerald-500/30",
+          "Pending": "bg-amber-950/60 text-amber-400 border-amber-500/30",
+          "Completed": "bg-sky-950/60 text-sky-400 border-sky-500/30",
+          "Cancelled": "bg-red-950/60 text-red-400 border-red-500/30"
+        };
+        const color = statusColors[b.status] || statusColors["Pending"];
+        const cleanPhone = (b.phone || "").replace(/[^0-9]/g, "");
+
+        return `
+          <tr class="hover:bg-white/[0.02]">
+            <td class="py-3 px-4 font-mono font-bold text-slate-400">${b.id}</td>
+            <td class="py-3 px-4"><strong class="text-white">${b.name}</strong><br><span class="text-[11px] text-slate-400">${b.phone}</span></td>
+            <td class="py-3 px-4 text-amber-400">${b.eventType}</td>
+            <td class="py-3 px-4 text-slate-300">${b.date}</td>
+            <td class="py-3 px-4">${b.guests}</td>
+            <td class="py-3 px-4 text-emerald-400 font-bold">${b.budget}</td>
+            <td class="py-3 px-4"><span class="px-2 py-0.5 rounded-full border text-[10px] font-bold ${color}">${b.status}</span></td>
+            <td class="py-3 px-4 text-right">
+              <button onclick="cycleAdmStatus('${b.id}')" class="px-2 py-1 rounded bg-[#1a1e2d] text-amber-300 border border-white/5 font-semibold text-[11px] hover:bg-amber-500/20">Cycle Status</button>
+              ${cleanPhone ? `<a href="https://wa.me/${cleanPhone}" target="_blank" class="px-2 py-1 rounded bg-emerald-700 text-white font-semibold text-[11px] ml-1">WhatsApp</a>` : ""}
+            </td>
+          </tr>
+        `;
+      }).join("");
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function cycleAdmStatus(id) {
+      const b = LuminaDB.bookings.getById(id);
+      if (!b) return;
+      const next = b.status === "Pending" ? "Confirmed" : b.status === "Confirmed" ? "Completed" : "Pending";
+      LuminaDB.bookings.update(id, { status: next });
+      renderAdmBookings();
+      renderAdmDashboard();
+    }
+
+    function seedDemoDataset() {
+      LuminaDB.seedDemoData();
+      renderAdmBookings();
+      renderAdmDashboard();
+      alert("Demo bookings populated!");
+    }
+
+    // --- Admin Packages CMS ---
+    function renderAdmPackages() {
+      const grid = document.getElementById("adm-packages-grid");
+      if (!grid) return;
+      const pkgs = LuminaDB.packages.getAll();
+      grid.innerHTML = pkgs.map(p => `
+        <div class="bg-[#131622] p-5 rounded-2xl border border-[#282e42] space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] font-bold text-amber-400 uppercase">${p.badge}</span>
+            <span class="text-xs font-bold text-emerald-400">${p.promoPrice}</span>
+          </div>
+          <h4 class="font-bold text-white text-base">${p.title}</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">${p.subtitle}</p>
+          <div class="pt-2 border-t border-white/5 flex justify-between items-center text-xs">
+            <span class="text-slate-400">Code: <strong class="text-white">${p.code}</strong></span>
+            <button onclick="togglePkgLive('${p.id}')" class="px-3 py-1 rounded-lg text-xs font-semibold ${p.active ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/30' : 'bg-slate-800 text-slate-400'}">
+              ${p.active ? 'Live on Site' : 'Hidden'}
+            </button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function togglePkgLive(id) {
+      const p = LuminaDB.packages.getById(id);
+      if (p) LuminaDB.packages.update(id, { active: !p.active });
+      renderAdmPackages();
+      initPromoBanner();
+    }
+
+    function loadAdmSettings() {
+      const s = LuminaDB.settings.get();
+      document.getElementById("adm-set-whatsapp").value = s.whatsapp || "1234567890";
+      document.getElementById("adm-set-banner").value = s.bannerAnnouncement || "";
+    }
+
+    function saveAdmSettings() {
+      const whatsapp = document.getElementById("adm-set-whatsapp").value;
+      const bannerAnnouncement = document.getElementById("adm-set-banner").value;
+      LuminaDB.settings.save({ whatsapp, bannerAnnouncement });
+      alert("Settings saved!");
+      document.getElementById("site-announcement-text").textContent = bannerAnnouncement;
+    }
+
+    // --- Public Hero Promo Banner Carousel ---
+    let currentSlide = 0;
+    function initPromoBanner() {
+      const container = document.getElementById("banner-slides-container");
+      if (!container) return;
+      const pkgs = window.LuminaDB ? window.LuminaDB.packages.getActive() : [];
+      if (!pkgs.length) return;
+
+      container.innerHTML = pkgs.map((p, idx) => `
+        <div class="banner-slide w-full ${idx === currentSlide ? 'block' : 'hidden'} flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase">${p.badge}</span>
+            <h3 class="text-2xl sm:text-3xl font-bold font-luxury text-white mt-2">${p.title}</h3>
+            <p class="text-slate-300 text-sm mt-1 max-w-2xl">${p.subtitle}</p>
+          </div>
+          <div class="text-center sm:text-right shrink-0">
+            <span class="text-xs text-slate-500 line-through">${p.originalPrice}</span>
+            <div class="text-3xl font-extrabold text-amber-400">${p.promoPrice}</div>
+            <button onclick="openBookingModal('${p.title} (${p.promoPrice})')" class="mt-2 px-6 py-2.5 rounded-xl font-bold text-black btn-gold text-xs">Claim Deal</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function nextSlide() {
+      const pkgs = window.LuminaDB ? window.LuminaDB.packages.getActive() : [];
+      if (!pkgs.length) return;
+      currentSlide = (currentSlide + 1) % pkgs.length;
+      initPromoBanner();
+    }
+    function prevSlide() {
+      const pkgs = window.LuminaDB ? window.LuminaDB.packages.getActive() : [];
+      if (!pkgs.length) return;
+      currentSlide = (currentSlide - 1 + pkgs.length) % pkgs.length;
+      initPromoBanner();
+    }
+
+    // --- Booking Modal Controls ---
+    function openBookingModal(pkgName = "") {
+      const modal = document.getElementById("booking-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      if (pkgName) document.getElementById("modal-package-select").value = pkgName;
+      if (window.lucide) lucide.createIcons();
+    }
+    function closeBookingModal() {
+      const modal = document.getElementById("booking-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    // --- Estimator Calculator ---
+    function updateEstimatorTotal() {
+      const guests = parseInt(document.getElementById("est-guest-slider")?.value || 250);
+      document.getElementById("est-guest-label").textContent = `${guests} Guests`;
+
+      const chairType = document.querySelector('input[name="chair-type"]:checked')?.value || "chiavari";
+      const chairPrices = { chiavari: 650, crossback: 800, ghost: 950 };
+      let total = guests * (chairPrices[chairType] || 650);
+
+      if (document.getElementById("est-addon-uplights")?.checked) total += 65000;
+      if (document.getElementById("est-addon-cloud")?.checked) total += 55000;
+
+      document.getElementById("est-total-display").textContent = `Rs. ${Math.round(total).toLocaleString()}`;
+    }
+
+    function bookEstimatedQuote() {
+      const total = document.getElementById("est-total-display").textContent;
+      const guests = document.getElementById("est-guest-slider").value;
+      openBookingModal(`Custom Estimator: ${guests} Guests (${total})`);
+    }
+  </script>
+</body>
+</html>

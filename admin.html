@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Rounders (LK) Admin Portal | Events & Bookings Console</title>
+  <meta name="description" content="Management console for All Rounders (LK) - From Sun Lighting events, bookings, packages, and inquiries." />
+
+  <!-- Favicon / Tab Icon -->
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              amber: '#fbbf24',
+              dark: '#0b0d14',
+              sidebar: '#0e111a',
+              card: '#151824',
+              border: '#232738'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Fonts & Core Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=Outfit:wght@600;700;800;900&family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b0d14;
+      color: #f1f5f9;
+    }
+    .font-luxury {
+      font-family: 'Cinzel', serif;
+    }
+    .font-brand-stylish {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .gold-glow {
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      transition: all 0.2s ease;
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+      transform: translateY(-1px);
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0e111a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #282e42;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3b435f;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0b0d14] text-slate-100 flex flex-col antialiased selection:bg-amber-500 selection:text-black">
+
+  <!-- ======================================================== -->
+  <!-- 1. AUTHENTICATION / LOGIN OVERLAY (shown when logged out) -->
+  <!-- ======================================================== -->
+  <div id="login-screen" class="fixed inset-0 z-50 bg-[#07090e] flex items-center justify-center p-4">
+    <!-- Ambient glow in background -->
+    <div class="absolute w-96 h-96 rounded-full bg-amber-500/10 filter blur-[100px] pointer-events-none top-1/4 left-1/2 -translate-x-1/2"></div>
+
+    <div class="w-full max-w-md bg-[#131622] border border-[#262b3d] rounded-2xl p-8 shadow-2xl relative z-10">
+      <div class="text-center mb-8">
+        <img src="images/all-rounders-logo.png" alt="All Rounders (LK) - From Sun Lighting" class="h-16 w-auto mx-auto mb-3 object-contain" />
+        <p class="text-slate-400 text-xs">Authorized Operations & Management Console</p>
+      </div>
+
+      <!-- Quick Demo Credentials Pill -->
+      <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3 mb-6 flex items-start gap-3">
+        <i data-lucide="key" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+        <div class="text-xs text-slate-300">
+          <span class="font-semibold text-amber-300">Default Credentials:</span><br>
+          Username: <code class="text-white bg-black/40 px-1 py-0.5 rounded">admin</code> |
+          Password: <code class="text-white bg-black/40 px-1 py-0.5 rounded">allrounder2026</code>
+        </div>
+      </div>
+
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5" for="login-username">Username</label>
+          <div class="relative">
+            <i data-lucide="user" class="w-4 h-4 text-slate-500 absolute left-3.5 top-3"></i>
+            <input type="text" id="login-username" value="admin" required
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition-colors"
+              placeholder="Enter username" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5" for="login-password">Password</label>
+          <div class="relative">
+            <i data-lucide="lock" class="w-4 h-4 text-slate-500 absolute left-3.5 top-3"></i>
+            <input type="password" id="login-password" value="allrounder2026" required
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 transition-colors"
+              placeholder="Enter password" />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
+          <label class="flex items-center gap-2 cursor-pointer select-none">
+            <input type="checkbox" id="login-remember" checked class="rounded bg-[#0b0d14] border-[#2b3147] text-amber-500 focus:ring-0">
+            <span>Remember this device</span>
+          </label>
+          <a href="index.html" class="hover:text-amber-400 flex items-center gap-1 transition-colors">
+            <span>Public Site</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+
+        <div id="login-error" class="hidden text-xs text-red-400 bg-red-950/40 border border-red-800/40 rounded-lg p-2.5 text-center"></div>
+
+        <button type="submit" class="w-full py-3 rounded-xl font-bold text-slate-950 btn-gold flex items-center justify-center gap-2 text-sm shadow-lg shadow-amber-500/20 mt-2">
+          <span>Sign In to Console</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 2. MAIN ADMIN APPLICATION APP SHELL                      -->
+  <!-- ======================================================== -->
+  <div id="admin-app" class="flex-1 flex overflow-hidden">
+
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden backdrop-blur-sm"></div>
+
+    <!-- SIDEBAR -->
+    <aside id="admin-sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-64 bg-[#0e111a] border-r border-[#202536] flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
+      <!-- Logo & Brand Header -->
+      <div class="h-20 px-6 flex items-center justify-between border-b border-[#202536]">
+        <div class="flex items-center gap-3">
+          <img src="images/all-rounders-logo.png" alt="All Rounders (LK)" class="h-10 w-auto max-w-[170px] object-contain" />
+        </div>
+        <!-- Close button on mobile -->
+        <button id="close-sidebar-btn" class="lg:hidden p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/5">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+        <a href="#dashboard" onclick="navigateView('dashboard')" id="nav-dashboard"
+          class="nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all bg-amber-500/10 text-amber-400 border border-amber-500/30">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="#bookings" onclick="navigateView('bookings')" id="nav-bookings"
+          class="nav-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+          <div class="flex items-center gap-3">
+            <i data-lucide="calendar-check" class="w-4 h-4"></i>
+            <span>Bookings & Leads</span>
+          </div>
+          <span id="badge-pending-count" class="px-2 py-0.5 text-xs font-bold rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">0</span>
+        </a>
+
+        <a href="#packages" onclick="navigateView('packages')" id="nav-packages"
+          class="nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+          <i data-lucide="gift" class="w-4 h-4"></i>
+          <span>Deals & Packages</span>
+        </a>
+
+        <a href="#messages" onclick="navigateView('messages')" id="nav-messages"
+          class="nav-link flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+          <div class="flex items-center gap-3">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <span>Contact Messages</span>
+          </div>
+          <span id="badge-unread-messages" class="px-2 py-0.5 text-xs font-bold rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/30 hidden">0</span>
+        </a>
+
+        <a href="#settings" onclick="navigateView('settings')" id="nav-settings"
+          class="nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-white transition-all">
+          <i data-lucide="settings" class="w-4 h-4"></i>
+          <span>Website Settings</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="p-4 border-t border-[#202536] space-y-3">
+        <!-- Live Public Site link -->
+        <a href="index.html" target="_blank"
+          class="flex items-center justify-between px-3 py-2 rounded-xl bg-[#141722] hover:bg-[#1a1e2d] border border-[#2b3147] text-xs font-medium text-slate-300 hover:text-amber-300 transition-colors">
+          <span class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>View Public Site</span>
+          </span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+
+        <!-- Admin Profile -->
+        <div class="flex items-center justify-between pt-1">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center font-bold text-xs">
+              AD
+            </div>
+            <div>
+              <div class="text-xs font-bold text-white leading-tight" id="sidebar-admin-name">Administrator</div>
+              <div class="text-[10px] text-slate-400">Master Console</div>
+            </div>
+          </div>
+          <button onclick="handleLogout()" title="Log Out" class="p-2 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10 transition-colors">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN BODY CONTENT -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+      <!-- TOP HEADER BAR -->
+      <header class="h-20 bg-[#0e111a]/80 backdrop-blur-xl border-b border-[#202536] px-6 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center gap-4">
+          <!-- Mobile Menu Toggle -->
+          <button id="open-sidebar-btn" class="lg:hidden p-2 text-slate-300 hover:text-white rounded-lg bg-[#151824] border border-[#262b3d]">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+
+          <div>
+            <h2 id="page-title" class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+              <span>Dashboard Overview</span>
+            </h2>
+            <div id="page-subtitle" class="text-xs text-slate-400 hidden sm:block">Real-time metrics, inquiries pipeline, and operations status</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Quick Action: Create Booking -->
+          <button onclick="openAddBookingModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-950 btn-gold flex items-center gap-1.5 shadow-md shadow-amber-500/15">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">New Booking</span>
+          </button>
+
+          <!-- Export CSV -->
+          <button onclick="LuminaDB.exportBookingsCSV()" title="Export Bookings to CSV"
+            class="p-2 text-slate-300 hover:text-white rounded-xl bg-[#151824] hover:bg-[#1f2436] border border-[#262b3d] text-xs transition-colors flex items-center gap-1.5">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span class="hidden md:inline text-xs font-medium">Export CSV</span>
+          </button>
+
+          <!-- Notification Bell -->
+          <div class="relative">
+            <button id="btn-notifications" onclick="toggleNotificationsDropdown()" class="p-2 text-slate-300 hover:text-white rounded-xl bg-[#151824] hover:bg-[#1f2436] border border-[#262b3d] transition-colors relative">
+              <i data-lucide="bell" class="w-4 h-4"></i>
+              <span id="notif-dot" class="w-2 h-2 rounded-full bg-amber-400 absolute top-1.5 right-1.5 animate-ping"></span>
+            </button>
+            <!-- Dropdown -->
+            <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-[#131622] border border-[#2b3147] rounded-2xl shadow-2xl p-4 z-50 text-xs">
+              <div class="flex items-center justify-between pb-2 border-b border-white/5 mb-3">
+                <span class="font-bold text-white">System Notifications</span>
+                <span class="text-[10px] text-amber-400 font-semibold" id="notif-count-text">Live Sync Active</span>
+              </div>
+              <div id="notif-list" class="space-y-2.5 max-h-60 overflow-y-auto">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW WRAPPER -->
+      <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-8">
+
+        <!-- ======================================================== -->
+        <!-- VIEW 1: DASHBOARD OVERVIEW                               -->
+        <!-- ======================================================== -->
+        <section id="view-dashboard" class="space-y-8">
+
+          <!-- 4 KPI Metrics Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <!-- Card 1: Total Bookings -->
+            <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-5 hover:border-amber-500/30 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Inquiries</span>
+                <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                  <i data-lucide="calendar" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-baseline justify-between">
+                <div class="text-2xl sm:text-3xl font-bold text-white" id="kpi-total-bookings">0</div>
+                <span class="text-[11px] font-semibold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/20">+18% MoM</span>
+              </div>
+              <div class="text-xs text-slate-400 mt-2">All incoming inquiries</div>
+            </div>
+
+            <!-- Card 2: Pending Action -->
+            <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-5 hover:border-amber-500/30 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Pending Review</span>
+                <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                  <i data-lucide="clock" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-baseline justify-between">
+                <div class="text-2xl sm:text-3xl font-bold text-amber-400" id="kpi-pending-bookings">0</div>
+                <span class="text-[11px] font-semibold text-amber-300 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/20">Needs Action</span>
+              </div>
+              <div class="text-xs text-slate-400 mt-2">Requires quote or reply</div>
+            </div>
+
+            <!-- Card 3: Estimated Pipeline -->
+            <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-5 hover:border-amber-500/30 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Pipeline Value</span>
+                <div class="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
+                  <i data-lucide="dollar-sign" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-baseline justify-between">
+                <div class="text-2xl sm:text-3xl font-bold text-white" id="kpi-pipeline-value">$0</div>
+                <span class="text-[11px] font-semibold text-purple-300 bg-purple-950/60 px-2 py-0.5 rounded border border-purple-500/20">Estimated</span>
+              </div>
+              <div class="text-xs text-slate-400 mt-2">Active deals in negotiation</div>
+            </div>
+
+            <!-- Card 4: Confirmed & Conversion -->
+            <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-5 hover:border-amber-500/30 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Confirmed Events</span>
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                  <i data-lucide="check-circle" class="w-4 h-4"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-baseline justify-between">
+                <div class="text-2xl sm:text-3xl font-bold text-emerald-400" id="kpi-confirmed-bookings">0</div>
+                <span class="text-[11px] font-semibold text-slate-300" id="kpi-conversion-rate">75% rate</span>
+              </div>
+              <div class="text-xs text-slate-400 mt-2">Locked in on calendar</div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Chart: Monthly Trends -->
+            <div class="lg:col-span-2 bg-[#131622] border border-[#24293c] rounded-2xl p-6">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="font-bold text-white text-base">Booking Inquiries Volume</h3>
+                  <p class="text-xs text-slate-400">Monthly leads trend across seasons</p>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="flex items-center gap-1.5 text-amber-400">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Bookings
+                  </span>
+                </div>
+              </div>
+              <div class="h-64 relative">
+                <canvas id="chart-trends"></canvas>
+              </div>
+            </div>
+
+            <!-- Doughnut Chart: Categories Distribution -->
+            <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-6">
+              <div class="mb-4">
+                <h3 class="font-bold text-white text-base">Events by Category</h3>
+                <p class="text-xs text-slate-400">Distribution across event genres</p>
+              </div>
+              <div class="h-64 relative flex items-center justify-center">
+                <canvas id="chart-categories"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Bookings Table Preview -->
+          <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="font-bold text-white text-base">Recent Inquiries & Leads</h3>
+                <p class="text-xs text-slate-400">Latest website submissions synchronized via LocalStorage</p>
+              </div>
+              <button onclick="navigateView('bookings')" class="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1">
+                <span>View All</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm">
+                <thead>
+                  <tr class="text-xs uppercase text-slate-400 border-b border-white/5 pb-3">
+                    <th class="py-3 px-3">Client</th>
+                    <th class="py-3 px-3">Event Type</th>
+                    <th class="py-3 px-3">Event Date</th>
+                    <th class="py-3 px-3">Package / Quote</th>
+                    <th class="py-3 px-3">Status</th>
+                    <th class="py-3 px-3 text-right">Quick Action</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-recent-table" class="divide-y divide-white/5 text-slate-200">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Quick Admin Action Banners -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-5 flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-white text-sm">Need Test Bookings?</h4>
+                <p class="text-xs text-slate-400 mt-1">Populate realistic wedding and gala leads.</p>
+              </div>
+              <button onclick="handleSeedData()" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 shrink-0">
+                Seed Demo Data
+              </button>
+            </div>
+
+            <div class="bg-gradient-to-br from-purple-500/10 to-transparent border border-purple-500/20 rounded-2xl p-5 flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-white text-sm">Upcoming Deals CMS</h4>
+                <p class="text-xs text-slate-400 mt-1">Publish discount promo codes to homepage.</p>
+              </div>
+              <button onclick="navigateView('packages')" class="px-3.5 py-2 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-500 shrink-0">
+                Manage Deals
+              </button>
+            </div>
+
+            <div class="bg-gradient-to-br from-sky-500/10 to-transparent border border-sky-500/20 rounded-2xl p-5 flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-white text-sm">WhatsApp Routing</h4>
+                <p class="text-xs text-slate-400 mt-1">Direct inquiries straight to your phone.</p>
+              </div>
+              <button onclick="navigateView('settings')" class="px-3.5 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs hover:bg-sky-500 shrink-0">
+                Configure Phone
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- VIEW 2: BOOKINGS & LEADS MANAGEMENT                      -->
+        <!-- ======================================================== -->
+        <section id="view-bookings" class="hidden space-y-6">
+
+          <!-- Controls Header: Tabs, Search, Export, Add -->
+          <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-5 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <!-- Status Filter Pills -->
+              <div class="flex items-center gap-2 overflow-x-auto pb-1" id="booking-status-filter-pills">
+                <button onclick="filterBookingsStatus('All', this)" class="status-tab-btn active px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 text-black">
+                  All (<span id="count-all">0</span>)
+                </button>
+                <button onclick="filterBookingsStatus('Pending', this)" class="status-tab-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-[#1a1e2e] text-slate-300 hover:text-white">
+                  Pending (<span id="count-pending">0</span>)
+                </button>
+                <button onclick="filterBookingsStatus('Confirmed', this)" class="status-tab-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-[#1a1e2e] text-slate-300 hover:text-white">
+                  Confirmed (<span id="count-confirmed">0</span>)
+                </button>
+                <button onclick="filterBookingsStatus('Completed', this)" class="status-tab-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-[#1a1e2e] text-slate-300 hover:text-white">
+                  Completed (<span id="count-completed">0</span>)
+                </button>
+                <button onclick="filterBookingsStatus('Cancelled', this)" class="status-tab-btn px-3 py-1.5 rounded-xl text-xs font-medium bg-[#1a1e2e] text-slate-300 hover:text-white">
+                  Cancelled (<span id="count-cancelled">0</span>)
+                </button>
+              </div>
+
+              <!-- Actions -->
+              <div class="flex items-center gap-3 shrink-0">
+                <button onclick="LuminaDB.exportBookingsCSV()" class="px-3 py-2 rounded-xl text-xs font-semibold bg-[#1a1e2e] border border-[#2c3247] text-slate-300 hover:text-white flex items-center gap-1.5">
+                  <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                  <span>Export CSV</span>
+                </button>
+                <button onclick="openAddBookingModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-950 btn-gold flex items-center gap-1.5">
+                  <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+                  <span>Add Lead</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Search Bar & Filters -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-white/5">
+              <div class="sm:col-span-2 relative">
+                <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3.5 top-3"></i>
+                <input type="text" id="bookings-search-input" oninput="renderBookingsTable()"
+                  placeholder="Search by client name, phone number, booking ID, or notes..."
+                  class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400" />
+              </div>
+              <div>
+                <select id="bookings-event-filter" onchange="renderBookingsTable()"
+                  class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-400">
+                  <option value="">All Event Categories</option>
+                  <option value="Wedding">Weddings</option>
+                  <option value="Gala">Galas & Corporate</option>
+                  <option value="Sangeet">Sangeet & Reception</option>
+                  <option value="Birthday">Birthdays & Anniversaries</option>
+                  <option value="Other">Other Events</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Bookings Data Table -->
+          <div class="bg-[#131622] border border-[#24293c] rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-[#0f121d] uppercase font-bold text-slate-400 border-b border-white/5">
+                  <tr>
+                    <th class="py-3.5 px-4">Booking ID</th>
+                    <th class="py-3.5 px-4">Client Contact</th>
+                    <th class="py-3.5 px-4">Event Type</th>
+                    <th class="py-3.5 px-4">Event Date</th>
+                    <th class="py-3.5 px-4">Guests</th>
+                    <th class="py-3.5 px-4">Quote / Package</th>
+                    <th class="py-3.5 px-4">Status</th>
+                    <th class="py-3.5 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="bookings-table-body" class="divide-y divide-white/5 text-slate-200">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+            <!-- Empty state -->
+            <div id="bookings-empty-state" class="hidden text-center py-16 px-4">
+              <i data-lucide="inbox" class="w-12 h-12 text-slate-600 mx-auto mb-3"></i>
+              <h4 class="text-base font-bold text-slate-300">No Bookings Found</h4>
+              <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">No inquiries match your current filter or search criteria.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- VIEW 3: DEALS & PROMO PACKAGES CMS                       -->
+        <!-- ======================================================== -->
+        <section id="view-packages" class="hidden space-y-6">
+
+          <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-white">Upcoming Deals & Packages CMS</h3>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">Live Sync</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Changes made here immediately update the promotional carousel and upcoming package deals on the public website.</p>
+            </div>
+            <button onclick="openAddPackageModal()" class="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-950 btn-gold flex items-center gap-2 shrink-0">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Create New Deal</span>
+            </button>
+          </div>
+
+          <!-- Packages Grid -->
+          <div id="packages-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- VIEW 4: CONTACT FORM MESSAGES                            -->
+        <!-- ======================================================== -->
+        <section id="view-messages" class="hidden space-y-6">
+
+          <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-6 flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-white">Customer Inquiries Inbox</h3>
+              <p class="text-xs text-slate-400 mt-1">Messages submitted from the website's contact form.</p>
+            </div>
+            <span id="messages-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30">
+              0 Messages
+            </span>
+          </div>
+
+          <div id="messages-list" class="space-y-4">
+            <!-- Injected via JS -->
+          </div>
+
+          <div id="messages-empty-state" class="hidden text-center py-16 bg-[#131622] border border-[#24293c] rounded-2xl">
+            <i data-lucide="mail-open" class="w-12 h-12 text-slate-600 mx-auto mb-3"></i>
+            <h4 class="text-base font-bold text-slate-300">Your Inbox is Empty</h4>
+            <p class="text-xs text-slate-500 mt-1">New submissions via the contact form will appear here automatically.</p>
+          </div>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- VIEW 5: SETTINGS & BACKUPS                               -->
+        <!-- ======================================================== -->
+        <section id="view-settings" class="hidden space-y-8">
+
+          <!-- Global Settings Card -->
+          <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-6 space-y-6">
+            <div>
+              <h3 class="text-lg font-bold text-white">Website & Contact Configurations</h3>
+              <p class="text-xs text-slate-400 mt-1">Configure where website leads and WhatsApp inquiries are routed.</p>
+            </div>
+
+            <form id="settings-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-2">WhatsApp Contact Number (No spaces or plus signs)</label>
+                <div class="relative">
+                  <i data-lucide="phone" class="w-4 h-4 text-slate-500 absolute left-3.5 top-3"></i>
+                  <input type="text" id="setting-whatsapp" required
+                    class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl pl-10 pr-4 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    placeholder="e.g. 1234567890" />
+                </div>
+                <p class="text-[11px] text-slate-500 mt-1">Bookings submitted on the website will open WhatsApp with this phone number.</p>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-2">Official Business Email</label>
+                <div class="relative">
+                  <i data-lucide="mail" class="w-4 h-4 text-slate-500 absolute left-3.5 top-3"></i>
+                  <input type="email" id="setting-email" required
+                    class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl pl-10 pr-4 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    placeholder="info@allrounder.lk" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-2">Customer Service Phone Display</label>
+                <div class="relative">
+                  <i data-lucide="phone-call" class="w-4 h-4 text-slate-500 absolute left-3.5 top-3"></i>
+                  <input type="text" id="setting-phone" required
+                    class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl pl-10 pr-4 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    placeholder="+94 77 123 4567" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-2">Currency Symbol</label>
+                <input type="text" id="setting-currency" value="Rs." required
+                  class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-amber-400" />
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="block text-xs font-semibold text-slate-300 mb-2">Top Banner Promo Text</label>
+                <input type="text" id="setting-announcement"
+                  class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-amber-400" />
+              </div>
+
+              <div class="md:col-span-2 flex items-center justify-end">
+                <button type="submit" class="px-6 py-2.5 rounded-xl font-bold text-xs text-slate-950 btn-gold flex items-center gap-2">
+                  <i data-lucide="save" class="w-4 h-4"></i>
+                  <span>Save Configuration</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Data Management & Danger Zone -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Backup & Export -->
+            <div class="bg-[#131622] border border-[#24293c] rounded-2xl p-6 space-y-4">
+              <h4 class="font-bold text-white text-base flex items-center gap-2">
+                <i data-lucide="database" class="w-4 h-4 text-amber-400"></i>
+                <span>Database Backup & Export</span>
+              </h4>
+              <p class="text-xs text-slate-400">Export your bookings, packages, and messages as standardized JSON or CSV spreadsheets.</p>
+              <div class="flex flex-wrap gap-3 pt-2">
+                <button onclick="LuminaDB.exportJSON()" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#1b2030] hover:bg-[#252b40] border border-[#2c3247] text-white flex items-center gap-2">
+                  <i data-lucide="file-code" class="w-4 h-4 text-sky-400"></i>
+                  <span>Export Complete JSON Backup</span>
+                </button>
+                <button onclick="LuminaDB.exportBookingsCSV()" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#1b2030] hover:bg-[#252b40] border border-[#2c3247] text-white flex items-center gap-2">
+                  <i data-lucide="sheet" class="w-4 h-4 text-emerald-400"></i>
+                  <span>Export Bookings CSV</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="bg-[#131622] border border-red-900/30 rounded-2xl p-6 space-y-4">
+              <h4 class="font-bold text-red-400 text-base flex items-center gap-2">
+                <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                <span>Database Maintenance</span>
+              </h4>
+              <p class="text-xs text-slate-400">Reload demo dataset or wipe storage clean for a fresh installation.</p>
+              <div class="flex flex-wrap gap-3 pt-2">
+                <button onclick="handleSeedData()" class="px-4 py-2 rounded-xl text-xs font-bold bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center gap-2">
+                  <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                  <span>Reset to Demo Data</span>
+                </button>
+                <button onclick="handleWipeData()" class="px-4 py-2 rounded-xl text-xs font-bold bg-red-950/40 hover:bg-red-900/40 border border-red-800/50 text-red-300 flex items-center gap-2">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  <span>Wipe All Records</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: BOOKING DETAILS & ADMIN ACTIONS                   -->
+  <!-- ======================================================== -->
+  <div id="booking-detail-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#131622] border border-[#262b3d] rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 space-y-6">
+      <div class="flex items-center justify-between border-b border-white/5 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-xl font-bold text-white" id="modal-detail-client-name">Client Name</h3>
+            <span id="modal-detail-status-pill" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">Pending</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1" id="modal-detail-booking-id">Booking ID: BK-0000</p>
+        </div>
+        <button onclick="closeBookingDetailModal()" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Detail Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <div class="bg-[#0b0d14] p-3.5 rounded-xl border border-white/5">
+          <span class="text-slate-500 font-semibold block uppercase">Phone / WhatsApp</span>
+          <span class="text-white font-medium text-sm mt-0.5 block" id="modal-detail-phone">-</span>
+        </div>
+        <div class="bg-[#0b0d14] p-3.5 rounded-xl border border-white/5">
+          <span class="text-slate-500 font-semibold block uppercase">Email</span>
+          <span class="text-white font-medium text-sm mt-0.5 block" id="modal-detail-email">-</span>
+        </div>
+        <div class="bg-[#0b0d14] p-3.5 rounded-xl border border-white/5">
+          <span class="text-slate-500 font-semibold block uppercase">Event Type</span>
+          <span class="text-amber-400 font-semibold text-sm mt-0.5 block" id="modal-detail-event-type">-</span>
+        </div>
+        <div class="bg-[#0b0d14] p-3.5 rounded-xl border border-white/5">
+          <span class="text-slate-500 font-semibold block uppercase">Event Date</span>
+          <span class="text-white font-medium text-sm mt-0.5 block" id="modal-detail-date">-</span>
+        </div>
+        <div class="bg-[#0b0d14] p-3.5 rounded-xl border border-white/5">
+          <span class="text-slate-500 font-semibold block uppercase">Estimated Guests</span>
+          <span class="text-white font-medium text-sm mt-0.5 block" id="modal-detail-guests">-</span>
+        </div>
+        <div class="bg-[#0b0d14] p-3.5 rounded-xl border border-white/5">
+          <span class="text-slate-500 font-semibold block uppercase">Package / Estimated Quote</span>
+          <span class="text-emerald-400 font-bold text-sm mt-0.5 block" id="modal-detail-budget">-</span>
+        </div>
+      </div>
+
+      <!-- Client Notes -->
+      <div class="bg-[#0b0d14] p-4 rounded-xl border border-white/5">
+        <span class="text-xs text-slate-400 font-semibold block mb-1 uppercase tracking-wider">Client Inquired Notes</span>
+        <p class="text-xs text-slate-200 leading-relaxed" id="modal-detail-notes">No special notes provided.</p>
+      </div>
+
+      <!-- Update Status & Admin Notes -->
+      <div class="space-y-4 pt-2 border-t border-white/5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">Update Booking Status</label>
+            <select id="modal-detail-status-select" class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400">
+              <option value="Pending">Pending Review</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">Direct Client Contact</label>
+            <button id="modal-detail-whatsapp-btn" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>Reply via WhatsApp</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">Internal Admin Notes (Private)</label>
+          <textarea id="modal-detail-admin-notes" rows="3"
+            class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+            placeholder="Add internal notes about venue permits, down payments, or gear assignments..."></textarea>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-4 border-t border-white/5">
+        <button onclick="handleDeleteCurrentBooking()" class="px-3.5 py-2 rounded-xl text-xs font-medium text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-1.5">
+          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          <span>Delete Booking</span>
+        </button>
+
+        <div class="flex items-center gap-3">
+          <button onclick="closeBookingDetailModal()" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-300 hover:text-white bg-[#1a1e2e]">
+            Close
+          </button>
+          <button onclick="saveBookingDetailsModal()" class="px-5 py-2 rounded-xl text-xs font-bold text-black btn-gold flex items-center gap-1.5">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>Save Changes</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: ADD / MANUAL BOOKING                              -->
+  <!-- ======================================================== -->
+  <div id="add-booking-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#131622] border border-[#262b3d] rounded-2xl max-w-xl w-full shadow-2xl p-6 space-y-6">
+      <div class="flex items-center justify-between border-b border-white/5 pb-3">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i data-lucide="user-plus" class="w-5 h-5 text-amber-400"></i>
+          <span>Add New Lead / Booking</span>
+        </h3>
+        <button onclick="closeAddBookingModal()" class="p-1.5 text-slate-400 hover:text-white rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="add-booking-form" class="space-y-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Client Full Name *</label>
+            <input type="text" id="new-b-name" required placeholder="e.g. Jordan Miller"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Phone Number *</label>
+            <input type="text" id="new-b-phone" required placeholder="+1 (555) 000-0000"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Email Address</label>
+            <input type="email" id="new-b-email" placeholder="client@email.com"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Event Type *</label>
+            <select id="new-b-event-type" required
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400">
+              <option value="Wedding">Luxury Wedding</option>
+              <option value="Corporate Gala">Corporate Gala / Product Launch</option>
+              <option value="Sangeet & Reception">Sangeet & Reception</option>
+              <option value="Private Birthday">Private Birthday / Anniversary</option>
+              <option value="Concert / Festival">Concert / Festival</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Event Date *</label>
+            <input type="date" id="new-b-date" required
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Approx Guests</label>
+            <input type="text" id="new-b-guests" placeholder="e.g. 250"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Budget / Price Quote</label>
+            <input type="text" id="new-b-budget" placeholder="$3,200"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Package Selected / Service Details</label>
+          <input type="text" id="new-b-package" placeholder="e.g. Royal Wedding Package + 300 Gold Chairs"
+            class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Initial Notes</label>
+          <textarea id="new-b-notes" rows="2" placeholder="Venue details, color palette, or gear requirements..."
+            class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl p-3 text-white focus:outline-none focus:border-amber-400"></textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-white/5">
+          <button type="button" onclick="closeAddBookingModal()" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white bg-[#1a1e2e]">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl font-bold text-black btn-gold">
+            Create Booking
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: ADD / EDIT PROMO PACKAGE                          -->
+  <!-- ======================================================== -->
+  <div id="package-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#131622] border border-[#262b3d] rounded-2xl max-w-lg w-full shadow-2xl p-6 space-y-5">
+      <div class="flex items-center justify-between border-b border-white/5 pb-3">
+        <h3 class="text-base font-bold text-white flex items-center gap-2" id="pkg-modal-title">
+          <i data-lucide="gift" class="w-5 h-5 text-amber-400"></i>
+          <span>Create Promotional Deal</span>
+        </h3>
+        <button onclick="closePackageModal()" class="p-1.5 text-slate-400 hover:text-white rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="package-form" class="space-y-4 text-xs">
+        <input type="hidden" id="pkg-id" />
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Badge Text *</label>
+          <input type="text" id="pkg-badge" required placeholder="🔥 HOT DEAL - UPCOMING SEASON"
+            class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Package Title *</label>
+          <input type="text" id="pkg-title" required placeholder="Royal Wedding Grandeur Package"
+            class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Subtitle / Equipment Summary *</label>
+          <textarea id="pkg-subtitle" rows="2" required placeholder="500 Gold Chiavari Chairs + Full Truss Moving-Head Rig + Fairy Canopy"
+            class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl p-3 text-white focus:outline-none focus:border-amber-400"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Regular Price</label>
+            <input type="text" id="pkg-orig-price" placeholder="$4,500"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Deal Price *</label>
+            <input type="text" id="pkg-promo-price" required placeholder="$3,499"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Savings Text</label>
+            <input type="text" id="pkg-savings" placeholder="SAVE $1,001"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Promo Code</label>
+            <input type="text" id="pkg-code" placeholder="ROYAL20"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Event Category Tag</label>
+            <input type="text" id="pkg-tag" placeholder="Wedding Special"
+              class="w-full bg-[#0b0d14] border border-[#2b3147] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-400" />
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <input type="checkbox" id="pkg-active" checked class="rounded bg-[#0b0d14] border-[#2b3147] text-amber-500 focus:ring-0">
+          <label for="pkg-active" class="font-semibold text-slate-300 select-none">Show on Live Website Carousel</label>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-white/5">
+          <button type="button" onclick="closePackageModal()" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white bg-[#1a1e2e]">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 rounded-xl font-bold text-black btn-gold">
+            Save Package Deal
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="admin-toast" class="fixed bottom-6 right-6 z-50 bg-[#151928] border border-amber-500/40 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 text-xs">
+    <i data-lucide="check-circle" class="w-4 h-4 text-amber-400 shrink-0"></i>
+    <span id="toast-msg">Action completed successfully.</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/admin-data.js"></script>
+  <script src="js/admin-ui.js"></script>
+</body>
+</html>

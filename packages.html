@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upcoming Packages & Event Deals | All Rounders (LK)</title>
+  <meta name="description" content="Explore All Rounders (LK) upcoming season packages for luxury weddings, corporate galas, and concert receptions in Sri Lanka. Complete lighting, chairs & stage rentals." />
+
+  <!-- Favicon / Tab Icon -->
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              amber: '#fbbf24',
+              dark: '#090a0f',
+              card: '#12151f',
+              purple: '#8b5cf6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700;1,800;1,900&family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800;900&family=Syne:wght@700;800;900&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    .package-card {
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .package-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.2);
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      transition: all 0.2s ease;
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="bg-[#090a0f] text-zinc-100 selection:bg-amber-500 selection:text-black min-h-screen flex flex-col">
+
+  <!-- Ambient Light Orbs -->
+  <div class="bg-ambient-lights">
+    <div class="light-orb orb-gold"></div>
+    <div class="light-orb orb-purple"></div>
+    <div class="light-orb orb-cyan"></div>
+  </div>
+
+  <!-- Announcement Bar -->
+  <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-zinc-950 px-4 py-2 text-xs sm:text-sm font-semibold text-center flex items-center justify-center gap-2 relative z-50 shadow-md">
+    <span class="animate-pulse">✨</span>
+    <span><strong>Upcoming Season Sale:</strong> Book your Wedding or Gala lighting & chairs early and get <strong>20% OFF</strong> + Free Cold Spark Fountains!</span>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="sticky top-0 z-40 bg-[#090a0f]/85 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group py-1">
+        <img src="images/all-rounders-logo.png" alt="All Rounders (LK) - From Sun Lighting" class="h-12 sm:h-14 w-auto max-w-[220px] sm:max-w-[260px] object-contain transition-transform group-hover:scale-105" />
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-300">
+        <a href="index.html" class="hover:text-amber-400 transition-colors">Home</a>
+        <a href="packages.html" class="text-amber-400 font-bold flex items-center gap-1">
+          <span>Packages</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+        </a>
+        <a href="reviews.html" class="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+          <i data-lucide="play-circle" class="w-4 h-4 text-amber-400"></i>
+          <span>Reviews</span>
+        </a>
+        <a href="index.html#contact" class="hover:text-amber-400 transition-colors">Contact</a>
+      </nav>
+
+      <!-- CTA Button -->
+      <div class="hidden sm:flex items-center gap-3">
+        <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-xl font-bold text-sm text-zinc-950 btn-gold flex items-center gap-2 shadow-lg shadow-amber-500/20">
+          <i data-lucide="calendar" class="w-4 h-4 text-zinc-950"></i>
+          <span>Book Event</span>
+        </button>
+        <a href="admin.html" class="px-3 py-2 rounded-xl text-xs font-semibold bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-amber-500/10 transition-all flex items-center gap-1.5" title="Admin Portal">
+          <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+          <span class="hidden lg:inline">Admin Portal</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0d1017] border-b border-zinc-800 px-6 py-6 space-y-4">
+      <a href="index.html" class="block text-zinc-300 hover:text-amber-400 py-1">Home</a>
+      <a href="packages.html" class="block text-amber-400 font-bold py-1">Packages</a>
+      <a href="reviews.html" class="block text-zinc-300 hover:text-amber-400 py-1">Reviews (Video)</a>
+      <a href="index.html#contact" class="block text-zinc-300 hover:text-amber-400 py-1">Contact</a>
+      <button onclick="openBookingModal()" class="w-full py-3 rounded-xl font-bold text-zinc-950 btn-gold flex items-center justify-center gap-2">
+        <i data-lucide="calendar" class="w-4 h-4"></i>
+        <span>Book Event</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10 space-y-12">
+
+    <!-- Page Header & Hero Banner -->
+    <div class="text-center max-w-3xl mx-auto pt-6 pb-2">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
+        <span>ALL ROUNDER.LK • 2026 EVENT SPECIALS</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-headline-packages tracking-tight leading-tight">
+        Upcoming Season Packages <br class="hidden sm:inline" />
+        <span class="ampersand">&</span>
+        <span class="gradient-gold">Production Bundles</span>
+      </h1>
+      <p class="text-zinc-400 text-sm sm:text-base mt-4 leading-relaxed">
+        Choose from our premier curated event bundles including gold Chiavari seating, computerized beam lighting, high-definition LED backdrops, and cloud dancefloor special effects.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap" id="pkg-category-filters">
+      <button onclick="filterPackages('all', this)" class="pkg-filter-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-amber-500 text-zinc-950 shadow-md shadow-amber-500/20">
+        All Packages (6)
+      </button>
+      <button onclick="filterPackages('wedding', this)" class="pkg-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-amber-500/30">
+        Luxury Weddings
+      </button>
+      <button onclick="filterPackages('sangeet', this)" class="pkg-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-amber-500/30">
+        Sangeet & Receptions
+      </button>
+      <button onclick="filterPackages('corporate', this)" class="pkg-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-amber-500/30">
+        Corporate Galas
+      </button>
+      <button onclick="filterPackages('private', this)" class="pkg-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-amber-500/30">
+        Private & Concerts
+      </button>
+    </div>
+
+    <!-- PACKAGES GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="packages-list-grid">
+
+      <!-- PACKAGE 1: Royal Wedding Grandeur -->
+      <div class="package-card glass-panel bg-[#12151f] border border-amber-500/30 rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" data-category="wedding">
+        <div class="absolute top-0 right-0 bg-gradient-to-l from-amber-500 to-amber-600 text-zinc-950 text-[10px] font-extrabold uppercase px-4 py-1 rounded-bl-xl tracking-wider">
+          🔥 Most Popular
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-500/20 text-amber-400 border border-amber-500/40">
+              Wedding Special
+            </span>
+            <span class="text-xs text-zinc-400">Code: <strong class="text-white">ROYAL20</strong></span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-white package-title mt-1">
+            Royal Wedding Grandeur
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Engineered for grand ballroom & hotel luxury weddings with high-capacity designer seating and full concert-grade atmospheric illumination.
+          </p>
+
+          <!-- Price -->
+          <div class="mt-6 p-4 rounded-2xl bg-black/40 border border-white/5">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="text-xs text-zinc-500 line-through">Rs. 450,000</span>
+                <div class="text-3xl font-extrabold text-amber-400">Rs. 349,900</div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-1 rounded-lg">
+                SAVE Rs. 100,100
+              </span>
+            </div>
+            <div class="text-[11px] text-zinc-400 mt-1">Includes setup, delivery & 3 on-site engineers</div>
+          </div>
+
+          <!-- Feature Inclusions Checklist -->
+          <div class="mt-6 space-y-2.5 text-xs text-zinc-300">
+            <div class="font-bold text-white uppercase text-[11px] tracking-wider mb-2 text-amber-400">What's Included:</div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>500 Gold Chiavari Chairs</strong> with luxury satin cushions</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>24ft Heavy Box Truss Rig</strong> with 8 Moving-Head Beams</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>32 Ambient Wireless DMX Uplights</strong> for ballroom perimeter</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>40ft Fairy Light Starlight Canopy</strong> over reception</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Low-Lying Fog (Clouds)</strong> + 4 Cold Spark Fountains</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Full-time lighting and sound engineer throughout the event</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-white/5 flex flex-col sm:flex-row items-center gap-3">
+          <button onclick="bookSpecificPackage('Royal Wedding Grandeur', 'Rs. 349,900')" class="w-full py-3.5 rounded-xl font-bold text-zinc-950 btn-gold flex items-center justify-center gap-2 text-xs shadow-lg shadow-amber-500/20">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Book This Package</span>
+          </button>
+          <button onclick="openWhatsAppInquiry('Royal Wedding Grandeur', 'Rs. 349,900')" class="w-full sm:w-auto p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center justify-center transition-colors" title="Inquire on WhatsApp">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PACKAGE 2: Starlight Sangeet & Reception -->
+      <div class="package-card glass-panel bg-[#12151f] border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" data-category="sangeet">
+        <div class="absolute top-0 right-0 bg-purple-600 text-white text-[10px] font-extrabold uppercase px-4 py-1 rounded-bl-xl tracking-wider">
+          ✨ High Demand
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-purple-500/20 text-purple-300 border border-purple-500/40">
+              Sangeet & Reception
+            </span>
+            <span class="text-xs text-zinc-400">Code: <strong class="text-white">STARLIGHT15</strong></span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-white package-title mt-1">
+            Starlight Sangeet & Reception
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Atmospheric vibrancy with deep colors, dynamic dancefloor fog clouds, cold spark fountains, and bespoke table chairs.
+          </p>
+
+          <!-- Price -->
+          <div class="mt-6 p-4 rounded-2xl bg-black/40 border border-white/5">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="text-xs text-zinc-500 line-through">Rs. 280,000</span>
+                <div class="text-3xl font-extrabold text-amber-400">Rs. 215,000</div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-1 rounded-lg">
+                SAVE Rs. 65,000
+              </span>
+            </div>
+            <div class="text-[11px] text-zinc-400 mt-1">Includes delivery, rigging & operations</div>
+          </div>
+
+          <!-- Feature Inclusions Checklist -->
+          <div class="mt-6 space-y-2.5 text-xs text-zinc-300">
+            <div class="font-bold text-white uppercase text-[11px] tracking-wider mb-2 text-amber-400">What's Included:</div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>300 Banquet or Cross-Back Chairs</strong> with satin bows</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>30 Ambient Wireless Uplights</strong> (Full RGBW Color Wash)</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Dancing on Clouds Machine</strong> for bridal first dance</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>4 Indoor Cold Spark Fountains</strong> (100% Smoke-Free)</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Fairy Light Entrance Archway</strong> & pathway wash</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Sound system hookups & master sound balance</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-white/5 flex flex-col sm:flex-row items-center gap-3">
+          <button onclick="bookSpecificPackage('Starlight Sangeet & Reception', 'Rs. 215,000')" class="w-full py-3.5 rounded-xl font-bold text-zinc-950 btn-gold flex items-center justify-center gap-2 text-xs shadow-lg shadow-amber-500/20">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Book This Package</span>
+          </button>
+          <button onclick="openWhatsAppInquiry('Starlight Sangeet & Reception', 'Rs. 215,000')" class="w-full sm:w-auto p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center justify-center transition-colors" title="Inquire on WhatsApp">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PACKAGE 3: Corporate Gala & Product Launch -->
+      <div class="package-card glass-panel bg-[#12151f] border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" data-category="corporate">
+        <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-extrabold uppercase px-4 py-1 rounded-bl-xl tracking-wider">
+          🏇 Corporate Tier
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-blue-500/20 text-blue-300 border border-blue-500/40">
+              Corporate / Gala
+            </span>
+            <span class="text-xs text-zinc-400">Code: <strong class="text-white">GALA25</strong></span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-white package-title mt-1">
+            Executive Corporate Gala
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Pristine audio-visual production, daylight-balanced keynote podium spotlights, LED screen backdrops, and executive seating.
+          </p>
+
+          <!-- Price -->
+          <div class="mt-6 p-4 rounded-2xl bg-black/40 border border-white/5">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="text-xs text-zinc-500 line-through">Rs. 520,000</span>
+                <div class="text-3xl font-extrabold text-amber-400">Rs. 410,000</div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-1 rounded-lg">
+                SAVE Rs. 110,000
+              </span>
+            </div>
+            <div class="text-[11px] text-zinc-400 mt-1">Tax invoice & company purchase orders accepted</div>
+          </div>
+
+          <!-- Feature Inclusions Checklist -->
+          <div class="mt-6 space-y-2.5 text-xs text-zinc-300">
+            <div class="font-bold text-white uppercase text-[11px] tracking-wider mb-2 text-amber-400">What's Included:</div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>200 Ergonomic Cross-Back Chairs</strong> + 4 VIP Leather Lounges</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>16x9ft High-Resolution P2.6 LED Video Wall</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Daylight CRI Stage Spotlights</strong> for CEO / Speaker Podium</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Custom Corporate Monogram GOBO Projector</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Pro Audio Line-Array System with Shure Wireless Mics</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Dedicated Live AV Control Technician</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-white/5 flex flex-col sm:flex-row items-center gap-3">
+          <button onclick="bookSpecificPackage('Executive Corporate Gala', 'Rs. 410,000')" class="w-full py-3.5 rounded-xl font-bold text-zinc-950 btn-gold flex items-center justify-center gap-2 text-xs shadow-lg shadow-amber-500/20">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Book This Package</span>
+          </button>
+          <button onclick="openWhatsAppInquiry('Executive Corporate Gala', 'Rs. 410,000')" class="w-full sm:w-auto p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center justify-center transition-colors" title="Inquire on WhatsApp">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PACKAGE 4: Boutique Garden Party & Anniversary -->
+      <div class="package-card glass-panel bg-[#12151f] border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" data-category="private">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+              Private Celebration
+            </span>
+            <span class="text-xs text-zinc-400">Code: <strong class="text-white">GARDEN10</strong></span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-white package-title mt-1">
+            Boutique Garden & Birthday
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Warm, cozy outdoor ambiance with vintage festoon string lights, crystal clear ghost seating, and ambient tree illumination.
+          </p>
+
+          <!-- Price -->
+          <div class="mt-6 p-4 rounded-2xl bg-black/40 border border-white/5">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="text-xs text-zinc-500 line-through">Rs. 185,000</span>
+                <div class="text-3xl font-extrabold text-amber-400">Rs. 145,000</div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-1 rounded-lg">
+                SAVE Rs. 40,000
+              </span>
+            </div>
+            <div class="text-[11px] text-zinc-400 mt-1">Perfect for 80-150 guests</div>
+          </div>
+
+          <!-- Feature Inclusions Checklist -->
+          <div class="mt-6 space-y-2.5 text-xs text-zinc-300">
+            <div class="font-bold text-white uppercase text-[11px] tracking-wider mb-2 text-amber-400">What's Included:</div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>100 Clear Ghost Chairs or Rustic Wood Cross-Backs</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>150m Warm Edison Festoon Light Overhead Canopy</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>16 Weatherproof Outdoor Tree Uplights</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Romantic Pillar Lanterns & Pathway Illuminations</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>High-fidelity party sound system with Bluetooth connectivity</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-white/5 flex flex-col sm:flex-row items-center gap-3">
+          <button onclick="bookSpecificPackage('Boutique Garden & Birthday', 'Rs. 145,000')" class="w-full py-3.5 rounded-xl font-bold text-zinc-950 btn-gold flex items-center justify-center gap-2 text-xs shadow-lg shadow-amber-500/20">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Book This Package</span>
+          </button>
+          <button onclick="openWhatsAppInquiry('Boutique Garden & Birthday', 'Rs. 145,000')" class="w-full sm:w-auto p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center justify-center transition-colors" title="Inquire on WhatsApp">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PACKAGE 5: Traditional Poruwa & Mandap Illumination -->
+      <div class="package-card glass-panel bg-[#12151f] border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" data-category="wedding">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40">
+              Cultural Splendor
+            </span>
+            <span class="text-xs text-zinc-400">Code: <strong class="text-white">PORUWA15</strong></span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-white package-title mt-1">
+            Poruwa & Mandap Illumination
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Tailored specifically for traditional Sri Lankan Poruwa ceremonies, Mandap setups, and temple garden wedding receptions.
+          </p>
+
+          <!-- Price -->
+          <div class="mt-6 p-4 rounded-2xl bg-black/40 border border-white/5">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="text-xs text-zinc-500 line-through">Rs. 230,000</span>
+                <div class="text-3xl font-extrabold text-amber-400">Rs. 175,000</div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-1 rounded-lg">
+                SAVE Rs. 55,000
+              </span>
+            </div>
+            <div class="text-[11px] text-zinc-400 mt-1">Custom color temperature presets</div>
+          </div>
+
+          <!-- Feature Inclusions Checklist -->
+          <div class="mt-6 space-y-2.5 text-xs text-zinc-300">
+            <div class="font-bold text-white uppercase text-[11px] tracking-wider mb-2 text-amber-400">What's Included:</div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>250 Gold Chiavari Chairs</strong> with Gold Tie Cushions</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Poruwa Stage Focused Pin-Spotting</strong> (High Photo CRI)</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Warm Gold Fairy Light Backdrop Curtain</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>20 Warm Amber Uplighting Rigs</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>Dry Ice Fog effect for key auspicious ceremonial moments</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-white/5 flex flex-col sm:flex-row items-center gap-3">
+          <button onclick="bookSpecificPackage('Poruwa & Mandap Illumination', 'Rs. 175,000')" class="w-full py-3.5 rounded-xl font-bold text-zinc-950 btn-gold flex items-center justify-center gap-2 text-xs shadow-lg shadow-amber-500/20">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Book This Package</span>
+          </button>
+          <button onclick="openWhatsAppInquiry('Poruwa & Mandap Illumination', 'Rs. 175,000')" class="w-full sm:w-auto p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center justify-center transition-colors" title="Inquire on WhatsApp">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- PACKAGE 6: Concert & Mega Festival Rig -->
+      <div class="package-card glass-panel bg-[#12151f] border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden" data-category="private">
+        <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-extrabold uppercase px-4 py-1 rounded-bl-xl tracking-wider">
+          ⚡ Arena Rig
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-red-500/20 text-red-300 border border-red-500/40">
+              Concert & Arena
+            </span>
+            <span class="text-xs text-zinc-400">Code: <strong class="text-white">MEGA2026</strong></span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-white package-title mt-1">
+            Concert & Festival Production
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Arena-grade lighting trusses, motorized moving beams, high-power audience blinders, heavy CO2 jets, and 4K LED video backdrops.
+          </p>
+
+          <!-- Price -->
+          <div class="mt-6 p-4 rounded-2xl bg-black/40 border border-white/5">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="text-xs text-zinc-500 line-through">Rs. 850,000</span>
+                <div class="text-3xl font-extrabold text-amber-400">Rs. 650,000</div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-1 rounded-lg">
+                SAVE Rs. 200,000
+              </span>
+            </div>
+            <div class="text-[11px] text-zinc-400 mt-1">GrandMA2 console programming included</div>
+          </div>
+
+          <!-- Feature Inclusions Checklist -->
+          <div class="mt-6 space-y-2.5 text-xs text-zinc-300">
+            <div class="font-bold text-white uppercase text-[11px] tracking-wider mb-2 text-amber-400">What's Included:</div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Full Ground-Supported Aluminum Box Truss Grid</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>16 Beam Moving Heads + 12 LED Wash Bars</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>24x14ft 4K High-Brightness Outdoor LED Screen</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span><strong>Dual Cryo CO2 Jets + 6 Heavy Cold Spark Machines</strong></span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span>On-site stage crew and lighting director throughout</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-5 border-t border-white/5 flex flex-col sm:flex-row items-center gap-3">
+          <button onclick="bookSpecificPackage('Concert & Festival Production', 'Rs. 650,000')" class="w-full py-3.5 rounded-xl font-bold text-zinc-950 btn-gold flex items-center justify-center gap-2 text-xs shadow-lg shadow-amber-500/20">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Book This Package</span>
+          </button>
+          <button onclick="openWhatsAppInquiry('Concert & Festival Production', 'Rs. 650,000')" class="w-full sm:w-auto p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center justify-center transition-colors" title="Inquire on WhatsApp">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Need Custom Build Callout -->
+    <div class="mt-16 bg-gradient-to-r from-amber-500/15 via-[#1a1c29] to-purple-500/15 border border-amber-500/30 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
+      <h3 class="text-2xl sm:text-4xl font-bold text-white package-title">
+        Need a Custom Configuration for Your Event?
+      </h3>
+      <p class="text-zinc-300 text-sm sm:text-base max-w-2xl mx-auto mt-3">
+        Whether you require 1,000+ Chiavari chairs, complex beach canopies, or a unique lighting layout in Colombo, Kandy, or Galle, our production planners build bespoke quotes within 30 minutes.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="openBookingModal('Custom Tailored Event Inquiry')" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-zinc-950 btn-gold text-sm shadow-xl shadow-amber-500/20">
+          Request Custom Event Quote
+        </button>
+        <a href="reviews.html" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-white bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-sm flex items-center justify-center gap-2">
+          <i data-lucide="play-circle" class="w-4 h-4 text-amber-400"></i>
+          <span>Watch Client Video Reviews</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-black border-t border-white/5 py-12 text-zinc-400 text-sm mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="images/all-rounders-logo.png" alt="All Rounders (LK) - From Sun Lighting" class="h-11 w-auto object-contain" />
+      </div>
+      <p class="text-xs text-zinc-500 text-center">
+        © 2026 All Rounders (LK) — From Sun Lighting. All Rights Reserved. Specializing in Stage Lightings, Chairs & Productions.
+      </p>
+      <div class="flex items-center gap-4 text-xs text-zinc-400 flex-wrap justify-center">
+        <a href="index.html" class="hover:text-amber-400">Home</a>
+        <a href="packages.html" class="text-amber-400">Packages</a>
+        <a href="reviews.html" class="hover:text-amber-400">Video Reviews</a>
+        <a href="admin.html" class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-zinc-900 border border-zinc-700/80 text-amber-400 hover:bg-amber-500/10 transition-all font-semibold">
+          <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+          <span>Admin Portal</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BOOKING & INQUIRY MODAL -->
+  <div id="booking-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="glass-panel bg-[#12151f] border border-amber-500/30 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      
+      <button onclick="closeBookingModal()" class="absolute top-5 right-5 p-2 text-zinc-400 hover:text-white rounded-lg bg-zinc-800/80">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div id="modal-body-container">
+        <div class="mb-6">
+          <span class="text-amber-400 text-xs font-bold uppercase tracking-widest">Reserve Your Package</span>
+          <h3 class="text-2xl font-bold text-white package-title mt-1">Book Your Event Package</h3>
+          <p class="text-xs text-zinc-400 mt-1">Submit your details to lock in promo rates and verify date availability on WhatsApp.</p>
+        </div>
+
+        <form id="package-booking-form" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Your Name *</label>
+            <input id="modal-name" type="text" required placeholder="e.g. Priyantha Silva" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Phone / WhatsApp *</label>
+              <input id="modal-phone" type="tel" required placeholder="+94 77 123 4567" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Event Category</label>
+              <select id="modal-event-type" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400">
+                <option>Luxury Wedding</option>
+                <option>Sangeet & Reception</option>
+                <option>Corporate Gala / Conference</option>
+                <option>Private Birthday / Anniversary</option>
+                <option>Concert / Festival</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Event Date</label>
+              <input id="modal-date" type="date" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">Guest Count</label>
+              <input id="modal-guests" type="number" placeholder="250" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Selected Package</label>
+            <input id="modal-package-select" type="text" readonly class="w-full bg-zinc-900/90 border border-amber-500/40 text-amber-300 font-bold rounded-xl px-4 py-2.5 text-sm" />
+          </div>
+
+          <div>
+            <label class="block font-semibold text-zinc-300 mb-1">Venue Location & Special Notes</label>
+            <textarea id="modal-notes" rows="2" placeholder="e.g. Hotel Galadari Colombo, need cold spark fountains for entrance" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-400"></textarea>
+          </div>
+
+          <div class="flex items-center gap-3 pt-2">
+            <button type="button" onclick="closeBookingModal()" class="w-1/3 py-3 rounded-xl bg-zinc-800 text-zinc-300 font-semibold">Cancel</button>
+            <button type="submit" class="w-2/3 py-3 rounded-xl font-bold text-zinc-950 btn-gold flex items-center justify-center gap-2 text-sm shadow-lg shadow-amber-500/25">
+              <i data-lucide="send" class="w-4 h-4 text-zinc-950"></i>
+              <span>Confirm & Book on WhatsApp</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/admin-data.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      initPackageForm();
+      initMobileMenu();
+
+      // Check URL params for preselected package
+      const params = new URLSearchParams(window.location.search);
+      const pkgParam = params.get("pkg");
+      if (pkgParam) {
+        openBookingModal(decodeURIComponent(pkgParam));
+      }
+    });
+
+    function filterPackages(category, btn) {
+      document.querySelectorAll(".pkg-filter-btn").forEach(b => {
+        b.classList.remove("active", "bg-amber-500", "text-zinc-950", "font-bold");
+        b.classList.add("bg-zinc-900", "text-zinc-300");
+      });
+      btn.classList.add("active", "bg-amber-500", "text-zinc-950", "font-bold");
+      btn.classList.remove("bg-zinc-900", "text-zinc-300");
+
+      const cards = document.querySelectorAll(".package-card");
+      cards.forEach(card => {
+        if (category === "all" || card.getAttribute("data-category") === category) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    function openBookingModal(packageName = "Royal Wedding Grandeur (Rs. 349,900)") {
+      const modal = document.getElementById("booking-modal");
+      const pkgInput = document.getElementById("modal-package-select");
+      if (pkgInput) pkgInput.value = packageName;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      lucide.createIcons();
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById("booking-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function bookSpecificPackage(title, price) {
+      openBookingModal(`${title} (${price})`);
+    }
+
+    function openWhatsAppInquiry(title, price) {
+      const settings = window.LuminaDB ? window.LuminaDB.settings.get() : { whatsapp: "1234567890" };
+      const waNumber = (settings.whatsapp || "1234567890").replace(/[^0-9]/g, "");
+      const msg = encodeURIComponent(`Hello All Rounder.lk!\n\nI saw your upcoming package deal: *${title}* for *${price}*.\n\nCould you please check availability for my upcoming event date?`);
+      window.open(`https://wa.me/${waNumber}?text=${msg}`, "_blank");
+    }
+
+    function initPackageForm() {
+      const form = document.getElementById("package-booking-form");
+      if (!form) return;
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("modal-name").value;
+        const phone = document.getElementById("modal-phone").value;
+        const eventType = document.getElementById("modal-event-type").value;
+        const packageSelected = document.getElementById("modal-package-select").value;
+        const date = document.getElementById("modal-date").value;
+        const guests = document.getElementById("modal-guests").value || "250";
+        const notes = document.getElementById("modal-notes").value || "";
+
+        // Save to LuminaDB for Admin Panel
+        if (window.LuminaDB && window.LuminaDB.bookings) {
+          window.LuminaDB.bookings.create({
+            name, phone, eventType, packageSelected, date, guests,
+            budget: packageSelected.includes("Rs.") ? packageSelected.match(/Rs\.\s*[0-9,]+/)?.[0] || "Rs. 250,000" : "Rs. 250,000",
+            notes, status: "Pending"
+          });
+        }
+
+        const settings = window.LuminaDB ? window.LuminaDB.settings.get() : { whatsapp: "1234567890" };
+        const waNumber = (settings.whatsapp || "1234567890").replace(/[^0-9]/g, "");
+
+        const msg = encodeURIComponent(
+          `*New Package Booking Inquiry via All Rounder.lk!*\n\n` +
+          `Client: ${name}\n` +
+          `Phone: ${phone}\n` +
+          `Event: ${eventType}\n` +
+          `Package: ${packageSelected}\n` +
+          `Date: ${date}\n` +
+          `Guests: ${guests}\n` +
+          `Notes: ${notes}\n\n` +
+          `Looking forward to confirming availability and details!`
+        );
+
+        window.open(`https://wa.me/${waNumber}?text=${msg}`, "_blank");
+        closeBookingModal();
+        alert("Your inquiry has been submitted and forwarded to All Rounder.lk on WhatsApp!");
+      });
+    }
+
+    function initMobileMenu() {
+      const btn = document.getElementById("mobile-menu-btn");
+      const menu = document.getElementById("mobile-menu");
+      if (!btn || !menu) return;
+      btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+    }
+  </script>
+</body>
+</html>
